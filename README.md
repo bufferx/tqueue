@@ -25,4 +25,4 @@ The following libraries are required
 Issues
 ------
 
-Please report any issues via [bitbucket issues](https://github.com/bufferx/tqueue/issues)
+Please report any issues via [github issues](https://github.com/bufferx/tqueue/issues)
