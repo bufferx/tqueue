@@ -41,7 +41,9 @@ class TApplication(tornado.web.Application):
 
     def __init__(self):
         self.queue = TDCQueue(capacity=options.capacity,
-                                delay_time=options.delay_time)
+                                delay_time=options.delay_time,
+                                pop_size=options.pop_size
+                                )
         self.whitesites_info = {
                 'mtime' : 0,
                 'data': {}

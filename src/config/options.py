@@ -31,6 +31,7 @@ DEFAULT_OPTIONS_LOG_ROOT_PATH     = \
     os.path.realpath(os.path.join(assembly.PROJECT_PATH, 'log'))
 DEFAULT_QUEUE_CAPACITY            = 10 * 1000
 DEFAULT_QUEUE_DELAYTIME           = 5 
+DEFAULT_QUEUE_POP_SIZE            = 1
 
 def define_options():
     # 日志
@@ -53,6 +54,9 @@ def define_options():
 
     define("delay_time", default = DEFAULT_QUEUE_DELAYTIME,
             help = "Queue Pop Delay Time, Default: %d" % DEFAULT_QUEUE_DELAYTIME, type = int)
+
+    define("pop_size", default = DEFAULT_QUEUE_POP_SIZE,
+            help = "Queue Pop Size, Default: %d" % DEFAULT_QUEUE_POP_SIZE, type = int)
 
 def _usage():
     print 'Usage: ./service -log_root_path=SpecifiedFile -port=SpecifiedPort'

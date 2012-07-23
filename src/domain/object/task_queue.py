@@ -29,12 +29,13 @@ from circular_queue import CircularQueue
 class TDCQueue(object):
     '''Time Delay Circular Queue
     '''
-    def __init__(self, capacity=10000, delay_time=10):
+    def __init__(self, capacity=10000, delay_time=10, pop_size=1):
         self.__queue = CircularQueue(capacity=capacity)
         self.__set = set()
-        self.__delay_time = delay_time
+        self.__DELAY_TIME = delay_time
+        self.__POP_SIZE = pop_size
         g_logger.info('Capacity: %d, DelayTime: %d', capacity,
-                self.__delay_time)
+                self.__DELAY_TIME)
         pass
 
     def push(self, q_data):
@@ -45,16 +46,17 @@ class TDCQueue(object):
             return ECODE.Q_EXISTS 
         else:
             self.__set.add(key)
-            q_data = (q_data, int(time.time()) + self.__delay_time)
+            q_data = (q_data, int(time.time()) + self.__DELAY_TIME)
             return self.__queue.push(q_data)
         pass
 
     def pop(self):
         pop_items = {} 
-        wait_time = self.__delay_time 
+        wait_time = self.__DELAY_TIME 
         current_time = int(time.time())
 
-        while 1:
+        pop_count = self.__POP_SIZE 
+        while pop_count:
             q_item = self.__queue.head()
             if ECODE.Q_EMPTY == q_item:
                 break
@@ -72,11 +74,12 @@ class TDCQueue(object):
             else:
                 wait_time = expire_time - current_time
                 break
+            pop_count -= 1
             pass
         return {'data': pop_items, 'wait_time': wait_time}
 
     def status(self):
-        wait_time = self.__delay_time 
+        wait_time = self.__DELAY_TIME 
         current_time = int(time.time())
 
         result = self.__queue.status()

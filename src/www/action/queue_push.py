@@ -29,7 +29,6 @@ import assembly
 from util import options
 from util import g_logger
 from util import CommonUtil
-from util import HttpUtil
 from util import decorator as util_decorator
 
 from base import BaseHandler
@@ -45,10 +44,9 @@ class QueuePushHandler(BaseHandler):
     def get(self):
         self.post()
 
-    @util_decorator.time_it
     @tornado.web.asynchronous
+    @util_decorator.validate_ip(g_logger)
     def post(self):
-        HttpUtil.validate_ip(self.request)
         try:
             if not self.request.body:
                 return self.api_response({'e_code': ECODE.Q_ERROR, 'e_msg':

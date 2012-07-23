@@ -29,7 +29,6 @@ import assembly
 from util import options
 from util import g_logger
 from util import CommonUtil
-from util import HttpUtil
 from util import decorator as util_decorator
 
 from base import BaseHandler
@@ -48,7 +47,6 @@ class QueueStatusHandler(BaseHandler):
     @tornado.web.asynchronous
     @util_decorator.validate_ip(g_logger)
     def get(self):
-        HttpUtil.validate_ip(self.request)
         try:
             return self.api_response(self.queue.status())
         except BaseError, e:
