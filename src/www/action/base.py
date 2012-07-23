@@ -40,6 +40,13 @@ class BaseHandler(tornado.web.RequestHandler):
         g_logger.info(HttpUtil.get_header_string(self.request))
         pass
 
+    def on_finish(self):
+        '''Require: tornado.version > 2.1.1
+        '''
+        request_time = 1000.0 * self.request.request_time()
+        g_logger.info("%d %s %.2fms", self.get_status(),
+                   self._request_summary(), request_time)
+
     def api_response(self, data):
         self.finish(data)
 
