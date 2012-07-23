@@ -45,8 +45,8 @@ class QueueStatusHandler(BaseHandler):
     def post(self):
         self.get()
 
-    @util_decorator.time_it
     @tornado.web.asynchronous
+    @util_decorator.validate_ip(g_logger)
     def get(self):
         HttpUtil.validate_ip(self.request)
         try:
