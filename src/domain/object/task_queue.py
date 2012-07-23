@@ -33,7 +33,7 @@ class TDCQueue(object):
         self.__queue = CircularQueue(capacity=capacity)
         self.__set = set()
         self.__delay_time = delay_time
-        g_logger.info('Capacity: %d, DealyTime: %d', capacity,
+        g_logger.info('Capacity: %d, DelayTime: %d', capacity,
                 self.__delay_time)
         pass
 
